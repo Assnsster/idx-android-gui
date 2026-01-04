@@ -86,10 +86,10 @@
         -device virtio-blk-pci,drive=vdisk \
         \
         -drive file="$WIN_ISO",media=cdrom,if=none,id=cd1 \
-        -device ide-cd,drive=cd1 \
+        -device ide-cd,drive=cd1,bus=ide.0 \
         \
         -drive file="$VIRTIO_ISO",media=cdrom,if=none,id=cd2 \
-        -device ide-cd,drive=cd2 \
+        -device ide-cd,drive=cd2,bus=ide.1 \
         \
         -boot order=d \
         \
