@@ -4,6 +4,7 @@
 
   packages = [
     pkgs.qemu
+    pkgs.htop
     pkgs.cloudflared
     pkgs.coreutils
     pkgs.gnugrep
