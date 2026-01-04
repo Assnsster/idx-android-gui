@@ -3,7 +3,8 @@
 
   packages = [
     pkgs.qemu
-    pkgs.OVMF
+    pkgs.ovmf.fdCode
+    pkgs.ovmf.fdVars
     pkgs.htop
     pkgs.cloudflared
     pkgs.coreutils
@@ -39,8 +40,8 @@
       VIRTIO_ISO="$VM_DIR/virtio-win.iso"
       NOVNC_DIR="$HOME/noVNC"
 
-      OVMF_CODE="${pkgs.OVMF}/share/OVMF/OVMF_CODE.fd"
-      OVMF_VARS="${pkgs.OVMF}/share/OVMF/OVMF_VARS.fd"
+      OVMF_CODE = "${pkgs.ovmf.fdCode}";
+      OVMF_VARS = "${pkgs.ovmf.fdVars}";
 
       mkdir -p "$VM_DIR"
 
