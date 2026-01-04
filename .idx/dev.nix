@@ -22,7 +22,7 @@
       if [ ! -f /home/user/.cleanup_done ]; then
         rm -rf /home/user/.gradle/* /home/user/.emu/* || true
         find /home/user -mindepth 1 -maxdepth 1 \
-          ! -name 'idx-ubuntu22-gui' \
+          ! -name 'idx-windows-gui' \
           ! -name '.cleanup_done' \
           ! -name '.*' \
           -exec rm -rf {} + || true
