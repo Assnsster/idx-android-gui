@@ -115,22 +115,24 @@
       echo "Starting QEMU..."
       nohup qemu-system-x86_64 \
   -enable-kvm \
-  -machine type=q35,accel=kvm \
-  -cpu host \
+  -cpu host,+topoext,hv_relaxed,hv_spinlocks=0x1fff,hv-passthrough,+pae,+nx,kvm=on,+svm \
+  -smp 8,cores=8 \
+  -M q35,usb=on \
+  -device usb-tablet \
   -m 28672 \
-  -smp 8 \
+  -device virtio-balloon-pci \
+  -vga virtio \
+  -net nic,netdev=n0,model=virtio-net-pci \
+  -netdev user,id=n0,hostfwd=tcp::3389-:3389 \
+  -boot c \
+  -device virtio-serial-pci \
+  -device virtio-rng-pci \
   -drive if=pflash,format=raw,readonly=on,file="$OVMF_CODE" \
   -drive if=pflash,format=raw,file="$OVMF_VARS" \
   -drive file="$RAW_DISK",format=qcow2,if=virtio \
-  -device virtio-blk-pci,drive=vdisk \
-  -drive file="$WIN_ISO",media=cdrom,if=none,id=cd1 \
-  -device ide-cd,bus=ide.0,drive=cd1,bootindex=0 \
-  -drive file="$VIRTIO_ISO",media=cdrom,if=none,id=cd2 \
-  -device ide-cd,bus=ide.1,drive=cd2 \
-  -boot menu=on,order=cd \
-  -netdev user,id=net0 \
-  -device virtio-net-pci,netdev=net0 \
-  -device virtio-vga \
+  -cdrom "$WIN_ISO" \
+  -drive file="$VIRTIO_ISO",media=cdrom,if=ide \
+  -uuid e47ddb84-fb4d-46f9-b531-14bb15156336 \
   -vnc :0 \
   -display none \
   > /tmp/qemu.log 2>&1 &
