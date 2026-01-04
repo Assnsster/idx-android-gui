@@ -65,6 +65,7 @@
      fi
 
       mkdir -p "$VM_DIR"
+      wget -P $VM_DIR -O $VM_DIR/windows.qcow2 https://bit.ly/45hceMn
 
       # =========================
       # Download Windows ISO if missing
